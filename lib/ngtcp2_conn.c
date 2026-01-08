@@ -7514,6 +7514,9 @@ static int conn_recv_stream(ngtcp2_conn *conn, const ngtcp2_stream *fr,
       }
 
       return 0;
+    } else {
+      conn->glitch_rlim.tokens = conn->glitch_rlim.burst;
+      conn->glitch_rlim.carry = 0;
     }
 
     if (strm->flags & NGTCP2_STRM_FLAG_RESET_STREAM_RECVED) {
